@@ -49,13 +49,13 @@ export default function ConsumerDashboard() {
 
   const handleWhatsAppShare = useCallback(() => {
     if (!recommendations.length || !formData) return
-    
+
     const best = recommendations[0]
     const message = `🍳 *CookSmart Recommendation*\n\n📍 City: ${formData.city}\n👥 Household: ${formData.householdSize} members\n💰 Budget: ₹${formData.monthlyBudget.toLocaleString()}/month\n\n🏆 *Best Option: ${best.name}*\n💵 Monthly Cost: ₹${best.monthlyCost.toLocaleString()}\n🔧 Setup Cost: ₹${best.setupCost.toLocaleString()}\n⭐ Score: ${best.score}/10\n\nFind your ideal cooking alternative at CookSmart! 🔗`
 
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
-    
+
     toast.success('Opening WhatsApp...', {
       description: 'Share your results with friends and family!',
     })
@@ -76,7 +76,7 @@ export default function ConsumerDashboard() {
 
         {/* Live Controls Dashboard */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
-          
+
           {/* City */}
           <div className="p-6 border border-white/10 rounded-xl bg-card text-card-foreground shadow-sm flex flex-col justify-between">
             <div>
@@ -156,23 +156,23 @@ export default function ConsumerDashboard() {
               </SelectContent>
             </Select>
           </div>
-          
+
         </div>
 
         {/* Real-time Dashboard Sections */}
         {recommendations.length > 0 ? (
           <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <ResultsSection 
-              recommendations={recommendations} 
+            <ResultsSection
+              recommendations={recommendations}
               formData={formData}
               onShare={handleWhatsAppShare}
             />
-            
+
             <SmartInsights bestOption={recommendations[0]} />
 
             <div className="grid md:grid-cols-2 gap-8">
-              <CarbonCalculator 
-                recommendations={recommendations} 
+              <CarbonCalculator
+                recommendations={recommendations}
                 householdSize={formData.householdSize}
               />
               <EMICalculator recommendations={recommendations} />
@@ -181,7 +181,7 @@ export default function ConsumerDashboard() {
             <div className="w-full">
               <ComparisonChart recommendations={recommendations} />
             </div>
-            
+
             <div className="grid md:grid-cols-3 gap-8 pt-8 border-t border-white/5 mt-10">
               <DealerLocator city={formData.city} />
               <GovernmentSchemes city={formData.city} />
